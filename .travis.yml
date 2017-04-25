@@ -1,0 +1,10 @@
+language: php
+php: '7.1'
+addons:
+  ssh_known_hosts: katy-ereira.co.uk
+before_install:
+- . ./scripts/install.sh
+script:
+- . ./scripts/test.sh
+after_success:
+- . ./scripts/deploy.sh
