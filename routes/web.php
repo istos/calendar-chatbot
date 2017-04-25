@@ -13,7 +13,11 @@ use Mpociot\BotMan\BotMan;
 |
 */
 
-Route::get('/', function () {
+Route::post('/', function () {
+    if ($challenge = request()->get('challenge')) {
+        return $challenge;
+    }
+
     $botman = app('botman');
 
     $botman->hears('hello', function (BotMan $bot) {
@@ -22,6 +26,4 @@ Route::get('/', function () {
 
     // start listening
     $botman->listen();
-
-    return view('welcome');
 });
