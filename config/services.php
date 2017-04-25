@@ -35,4 +35,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'botman' => [
+        'slack_token' => env('SLACK_TOKEN'),
+    ],
+
 ];

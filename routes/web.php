@@ -1,5 +1,7 @@
 <?php
 
+use Mpociot\BotMan\BotMan;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +14,14 @@
 */
 
 Route::get('/', function () {
+    $botman = app('botman');
+
+    $botman->hears('hello', function (BotMan $bot) {
+        $bot->reply('Hello yourself.');
+    });
+
+    // start listening
+    $botman->listen();
+
     return view('welcome');
 });
