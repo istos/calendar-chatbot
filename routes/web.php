@@ -18,10 +18,15 @@ Route::post('/', function () {
         return $challenge;
     }
 
+    /** @var \GuzzleHttp\Client $watsonApi */
+    $watsonApi = resolve('watson');
+
     $botman = app('botman');
 
-    $botman->hears('hello', function (BotMan $bot) {
-        $bot->reply('Hello yourself.');
+    $botman->fallback(function($bot) use ($watsonApi) {
+        $response = $watsonApi->post('?version=2017-04-24', ['body' => json_encode(['input' => ['text' => 'Hello']])]);
+        $resp = json_decode((string) $response->getBody());
+        $bot->reply($resp->output->text[0]);
     });
 
     // start listening
